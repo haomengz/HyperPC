@@ -1,0 +1,39 @@
+# config settings
+
+dataset: 'mvp'                              # [c3d(completion3d), m40(modelnet40), snet(shapenet)]
+task: 'completion'                          # task in ['classification','completion','segmentation']
+bsize: 64                                   # smaller bsize, such as 32, for snowflake
+max_epoch: 100                              # max number of epochs
+lr: 0.0002                                  # 0.0001 for topnet, folding, snowflake
+lr_step_size: 40                            # step size for lr decay
+lr_gamma: 0.2                               # lr decay rate
+check_dir: 'checkpoint_mvp_pc'              # directory to save checkpoints
+log_dir: 'logs_mvp_pc'                      # directory to save logs
+
+encoder_choice: pcn                         # [pointnet, pointnet2, pcn, dgcnn, snowflake, hsnowflake]
+completion_decoder_choice: folding          # [cascade, folding, topnet, pcn, snowfake, hsnowflake]
+maxpool_bottleneck: 1024                    # dimensions of max pooling layer
+use_hyperspherical_module: True             # whether to use hyperspherical encoding module
+hyper_bottleneck: 512                       # dimensions of hyperspherical encoding feature
+use_hyperspherical_encoding: True           # whether to use hyperspherical encoding feature. It validates only if use_hyperspherical_module==True
+
+norm_order: 2                               # norm order
+hyperspherical_module_layers: 0             # additional MLP layers in the hyperspherical encoding module; Default: 0
+hyperspherical_module_BN: False             # whether to use batchnorm in the hyperspherical encoding module
+
+weight_sec_loss: null                       # weights for spherical embedding constraint. `null` for disable
+mlps_classifier: '512,256,16'                # layers in the classification decoder
+use_BN_classifier: True                      # whether to use batchnorm in classification decoder
+mlps_segmentator: '512,256,50'              # layers in the segmentation decoder
+use_BN_segmentator: True                    # whether to use batchnorm in segmentation decoder
+
+eval: False                                 # whether to evaluate
+pretrained_path: null                       # use pretrained weights if the path is not `null`
+compute_gradient_norm: False                # whether to compute the norm of gradient of the shared parameters. It will increase training time 
+                                            # and GPU memory usage significantly.
+
+                                            # Multi-task learning parameters
+grad_surgey_flag: False                      # whether to use grad_surgey - It validates only if compute_gradient_norm==True
+uncertainty_flag: False                      # whether to use Uncertainty 
+optimal_search: False                       # whether to adjust weights for optimal search
+ratio: 0.0001                               # optimal search weights ratio
