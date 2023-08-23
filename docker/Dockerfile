@@ -34,7 +34,7 @@ RUN wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-lin
 
 # compile pointnet2_utils for snowflakenet
 RUN git clone https://github.com/AllenXiangX/SnowflakeNet.git
-RUN cd SnowflakeNet/pointnet2_ops_lib && python setup.py install
+RUN cd SnowflakeNet/models/pointnet2_ops_lib && python setup.py install
 
 # Add user to solve 'I have no name' warning
 ARG UNAME=DockerUser
